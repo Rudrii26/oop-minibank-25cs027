@@ -1,44 +1,42 @@
-
 public class PasswordChecker {
 
-    // Length >= 8
-    public static boolean hasMinLength(String pw) {
-        return pw.length() >= 8;
-    }
-
-    // Contains uppercase letter
-    public static boolean hasUpperCase(String pw) {
-        return pw.matches(".*[A-Z].*");
-    }
-
-    // Contains digit
-    public static boolean hasDigit(String pw) {
-        return pw.matches(".*[0-9].*");
-    }
-
-    // Contains special character
-    public static boolean hasSpecialCharacter(String pw) {
-        return pw.matches(".*[^a-zA-Z0-9].*");
-    }
-
-    // Weak, Medium, or Strong
     public static String strength(String pw) {
         int count = 0;
 
-        if (hasMinLength(pw))
-            count++;
-        if (hasUpperCase(pw))
-            count++;
-        if (hasDigit(pw))
-            count++;
-        if (hasSpecialCharacter(pw))
-            count++;
+        // Check the four password rules
+        boolean length = pw.length() >= 8;
+        boolean upper = pw.matches(".*[A-Z].*");
+        boolean digit = pw.matches(".*[0-9].*");
+        boolean special = pw.matches(".*[^a-zA-Z0-9].*");
 
-        if (count <= 1)
+        if (length) {
+            count++;
+        }
+
+        if (upper) {
+            count++;
+        }
+
+        if (digit) {
+            count++;
+        }
+
+        if (special) {
+            count++;
+        }
+
+        System.out.println("Length at least 8: " + length);
+        System.out.println("Contains uppercase: " + upper);
+        System.out.println("Contains digit: " + digit);
+        System.out.println("Contains special character: " + special);
+
+        // Return the strength according to the number of rules passed
+        if (count <= 1) {
             return "Weak";
-        else if (count <= 3)
+        } else if (count <= 3) {
             return "Medium";
-        else
+        } else {
             return "Strong";
+        }
     }
 }

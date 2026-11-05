@@ -1,7 +1,4 @@
-import java.util.Scanner;
-
 public class Thermostat {
-
     private String location;
     private int temperature;
 
@@ -10,35 +7,44 @@ public class Thermostat {
 
     private static int activeCount = 0;
 
+    // Constructor with location and starting temperature
     public Thermostat(String location, int startTemp) {
         this.location = location;
 
-        if (startTemp >= MIN && startTemp <= MAX)
+        // Use 22 if the given temperature is outside the allowed range
+        if (startTemp >= MIN && startTemp <= MAX) {
             temperature = startTemp;
-        else
+        } else {
             temperature = 22;
+        }
 
         activeCount++;
     }
 
+    // Constructor chaining with the default temperature
     public Thermostat(String location) {
         this(location, 22);
     }
 
+    // Increase temperature by one degree
     public void raise() {
-        if (temperature < MAX)
+        if (temperature < MAX) {
             temperature++;
-        else
+        } else {
             System.out.println("Already at maximum (30)");
+        }
     }
 
+    // Decrease temperature by one degree
     public void lower() {
-        if (temperature > MIN)
+        if (temperature > MIN) {
             temperature--;
-        else
+        } else {
             System.out.println("Already at minimum (16)");
+        }
     }
 
+    // Getter method without a setter
     public int getTemperature() {
         return temperature;
     }
@@ -48,39 +54,25 @@ public class Thermostat {
     }
 
     public static void main(String[] args) {
+        Thermostat t1 = new Thermostat("Bedroom", 22);
+        Thermostat t2 = new Thermostat("Hall");
 
-        Scanner sc = new Scanner(System.in);
+        System.out.println("Raising temperature:");
 
-        System.out.print("Enter location of Thermostat 1: ");
-        String loc1 = sc.nextLine();
-
-        System.out.print("Enter starting temperature: ");
-        int temp = sc.nextInt();
-        sc.nextLine();
-
-        Thermostat t1 = new Thermostat(loc1, temp);
-
-        System.out.print("Enter location of Thermostat 2: ");
-        String loc2 = sc.nextLine();
-
-        Thermostat t2 = new Thermostat(loc2);
-
-        System.out.println("\nIncreasing Temperature");
-
+        // Raise the first thermostat 10 times
         for (int i = 1; i <= 10; i++) {
             t1.raise();
-            System.out.println("Temperature = " + t1.getTemperature());
+            System.out.println(t1.getTemperature());
         }
 
-        System.out.println("\nDecreasing Temperature");
+        System.out.println("Lowering temperature:");
 
+        // Lower the second thermostat 20 times
         for (int i = 1; i <= 20; i++) {
-            t1.lower();
-            System.out.println("Temperature = " + t1.getTemperature());
+            t2.lower();
+            System.out.println(t2.getTemperature());
         }
 
-        System.out.println("\nActive Thermostats = " + Thermostat.getActiveCount());
-
-        sc.close();
+        System.out.println("Active thermostats: " + getActiveCount());
     }
 }

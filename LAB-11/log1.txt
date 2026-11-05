@@ -1,0 +1,3 @@
+Application started
+ERROR: Connection failed
+User logged in

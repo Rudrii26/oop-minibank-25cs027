@@ -1,16 +1,14 @@
 public class ChatFilter {
 
-    public static void filter(String[] logs, String keyword) {
-
+    public static String filter(String[] logs, String keyword) {
+        StringBuilder report = new StringBuilder();
         int count = 0;
-        StringBuilder sb = new StringBuilder();
 
+        // Check every chat log
         for (String line : logs) {
-
-            // Split into time, user and message
             String[] parts = line.split(" ", 3);
 
-            // Skip malformed lines
+            // Ignore malformed lines
             if (parts.length < 3) {
                 continue;
             }
@@ -19,19 +17,19 @@ public class ChatFilter {
             String user = parts[1];
             String message = parts[2];
 
-            // Case-insensitive search
+            // Search inside the message without case sensitivity
             if (message.toLowerCase().contains(keyword.toLowerCase())) {
                 count++;
-                sb.append(time)
-                  .append(" ")
-                  .append(user)
-                  .append(": ")
-                  .append(message)
-                  .append("\n");
+                report.append(time)
+                      .append(" ")
+                      .append(user)
+                      .append(": ")
+                      .append(message)
+                      .append("\n");
             }
         }
 
         System.out.println("Matches: " + count);
-        System.out.println(sb);
+        return report.toString();
     }
 }

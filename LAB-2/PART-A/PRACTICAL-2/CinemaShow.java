@@ -1,79 +1,62 @@
-import java.util.Scanner;
-
 public class CinemaShow {
-
-    private String title;
+    private String movieName;
     private int seatsAvailable;
-    private final int capacity;
+    final int capacity;
 
-    private static int totalBooked = 0;
+    static int totalBooked = 0;
 
-    public CinemaShow(String title, int capacity) {
-        this.title = title;
+    // Constructor
+    CinemaShow(String movieName, int capacity) {
+        this.movieName = movieName;
         this.capacity = capacity;
-        this.seatsAvailable = capacity;
+        seatsAvailable = capacity;
     }
 
-    public CinemaShow(String title) {
-        this(title, 100);
-    }
-
-    public boolean book(int n) {
-        if (n <= seatsAvailable) {
-            seatsAvailable -= n;
-            totalBooked += n;
-            return true;
+    // Book seats if enough seats are available
+    void bookSeats(int seats) {
+        if (seats <= 0) {
+            System.out.println("Invalid number of seats");
+        } else if (seats <= seatsAvailable) {
+            seatsAvailable = seatsAvailable - seats;
+            totalBooked = totalBooked + seats;
+            System.out.println(seats + " seats booked successfully");
+        } else {
+            System.out.println("Not enough seats available");
         }
-        return false;
     }
 
-    public void cancel(int n) {
-        seatsAvailable += n;
-
-        if (seatsAvailable > capacity)
-            seatsAvailable = capacity;
+    // Cancel previously booked seats
+    void cancelSeats(int seats) {
+        if (seats <= 0 || seats > capacity - seatsAvailable) {
+            System.out.println("Invalid cancellation");
+        } else {
+            seatsAvailable = seatsAvailable + seats;
+            totalBooked = totalBooked - seats;
+            System.out.println(seats + " seats cancelled");
+        }
     }
 
-    public int getSeatsAvailable() {
+    int getSeatsAvailable() {
         return seatsAvailable;
     }
 
-    public static int getTotalBooked() {
-        return totalBooked;
+    String getMovieName() {
+        return movieName;
     }
 
     public static void main(String[] args) {
+        CinemaShow show = new CinemaShow("Avengers", 50);
 
-        Scanner sc = new Scanner(System.in);
+        System.out.println("Movie: " + show.getMovieName());
+        System.out.println("Available seats: " + show.getSeatsAvailable());
 
-        System.out.print("Enter movie title: ");
-        String title = sc.nextLine();
+        show.bookSeats(20);
+        show.bookSeats(25);
+        show.bookSeats(10);
 
-        System.out.print("Enter capacity: ");
-        int capacity = sc.nextInt();
+        show.cancelSeats(5);
 
-        CinemaShow show = new CinemaShow(title, capacity);
-
-        System.out.print("\nEnter seats to book: ");
-        int book1 = sc.nextInt();
-
-        System.out.println("Booking Successful: " + show.book(book1));
-        System.out.println("Seats Available: " + show.getSeatsAvailable());
-
-        System.out.print("\nEnter seats to cancel: ");
-        int cancel = sc.nextInt();
-
-        show.cancel(cancel);
-        System.out.println("Seats Available: " + show.getSeatsAvailable());
-
-        System.out.print("\nEnter seats to book again: ");
-        int book2 = sc.nextInt();
-
-        System.out.println("Booking Successful: " + show.book(book2));
-        System.out.println("Seats Available: " + show.getSeatsAvailable());
-
-        System.out.println("\nTotal Booked Seats: " + CinemaShow.getTotalBooked());
-
-        sc.close();
+        System.out.println("Available seats: " + show.getSeatsAvailable());
+        System.out.println("Total booked seats: " + totalBooked);
     }
 }

@@ -71,4 +71,3 @@ public class ShapeAreas {
         System.out.printf("Largest area: %.2f (%s)%n",largest,largestShape.getClass().getSimpleName());
     }
 }
-```
