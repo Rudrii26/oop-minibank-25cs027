@@ -1,0 +1,15 @@
+# Compiled class files
+*.class
+out/
+bin/
+
+# Runtime data and generated logs (Practical 11 & 14)
+data/
+
+# IDE and OS files
+.idea/
+*.iml
+.vscode/
+.DS_Store
+Thumbs.db
+
